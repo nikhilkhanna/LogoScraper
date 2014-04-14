@@ -4,13 +4,14 @@ import wikipedia
 import urllib
 import urllib2
 import json
-
+import threading
 
 def main():
 	open("logos/notfound.txt", 'w').close()
 	brandNames = [line.strip() for line in open('brands.txt')]
 	for brand in brandNames:
-		getCompanyLogo(brand)
+		thr = threading.Thread(target=getCompanyLogo, args = [brand])
+		thr.start()
 
 def getCompanyLogo(companyName):
 	try:
